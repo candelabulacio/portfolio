@@ -1,0 +1,13 @@
+{
+  "name": "candela-bulacio-portfolio",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Portfolio y CV online de Candela Bulacio",
+  "type": "module",
+  "engines": { "node": ">=20" },
+  "scripts": {
+    "dev": "node src/dev.mjs",
+    "build": "node src/build.mjs",
+    "preview": "node src/dev.mjs --no-watch"
+  }
+}
