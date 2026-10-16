@@ -87,7 +87,7 @@ export const layout = (ctx, { titulo, descripcion, ruta = '', main, tipo = 'webs
 <link rel="icon" href="${ctx.root}favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..800&family=Cormorant+Garamond:wght@500;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..800&display=swap">
 <link rel="stylesheet" href="${ctx.root}assets/site.css?v=${ctx.version}">
 <script type="application/ld+json">${JSON.stringify(persona)}</script>
 <script>document.documentElement.classList.add('js')</script>

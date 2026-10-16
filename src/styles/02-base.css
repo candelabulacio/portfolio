@@ -42,6 +42,7 @@ dl, dd { margin: 0; }
 }
 
 main:focus { outline: none; }
+button, input, select, textarea { font-family: inherit; }
 
 .wrap {
   width: 100%;

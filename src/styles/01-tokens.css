@@ -20,20 +20,18 @@
   --linea-clara: rgb(251 249 242 / 0.18);
 
   /* Tipografía */
-  /* Archivo: sans grotesca; en títulos se usa ancha (wdth 115) y muy bold.
-     Cormorant Garamond: serif para los nombres de proyectos, como logotipos. */
+  /* Una sola tipografía en todo el sitio: Archivo.
+     Los títulos usan la versión ancha (wdth 115) y extra bold. */
   --font-display: 'Archivo', ui-sans-serif, system-ui, sans-serif;
   --font-text: 'Archivo', ui-sans-serif, system-ui, sans-serif;
-  --font-serif: 'Cormorant Garamond', 'Times New Roman', serif;
   --ancho-titulos: 115%;
 
-  --step--1: 0.8125rem;
-  --step-0: 1.0625rem;
-  --step-1: clamp(1.1875rem, 1.1rem + 0.4vw, 1.375rem);
-  --step-2: clamp(1.375rem, 1.2rem + 0.9vw, 1.875rem);
-  --step-3: clamp(1.75rem, 1.4rem + 1.8vw, 2.875rem);
-  --step-4: clamp(2.5rem, 1.6rem + 4.4vw, 5.25rem);
-  --step-display: clamp(4.25rem, 1rem + 15vw, 13.5rem);
+  --step--1: 0.75rem;
+  --step-0: 1rem;
+  --step-1: clamp(1.0625rem, 1rem + 0.25vw, 1.1875rem);
+  --step-2: clamp(1.1875rem, 1.1rem + 0.45vw, 1.5rem);
+  --step-3: clamp(1.5rem, 1.25rem + 1.1vw, 2.125rem);
+  --step-4: clamp(2rem, 1.4rem + 2.6vw, 3.5rem);
 
   /* Espaciado y grilla */
   --gutter: clamp(1rem, 0.4rem + 3vw, 3rem);
