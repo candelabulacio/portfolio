@@ -1,12 +1,10 @@
 import { esc, html } from '../lib/html.mjs';
 
 // Secciones del menú, en el mismo orden en que aparecen en la página.
-// "Servicios" está en Inicio pero no en el menú.
+// Servicios, Sobre mí y Habilidades siguen en Inicio, pero no están en el menú.
 export const SECCIONES = [
   { id: 'proyectos', nombre: 'Proyectos' },
-  { id: 'sobre-mi', nombre: 'Sobre mí' },
   { id: 'experiencia', nombre: 'Experiencia' },
-  { id: 'habilidades', nombre: 'Habilidades' },
   { id: 'formacion', nombre: 'Formación' },
   { id: 'contacto', nombre: 'Contacto' },
 ];
