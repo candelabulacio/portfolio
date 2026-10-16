@@ -19,6 +19,9 @@ export default {
   hero: {
     titular: ['Ideas con intención.', 'Comunicación con identidad.'],
     // Dos o tres líneas como máximo.
+    // Foto de la portada: guardala en public/img/ y escribí la ruta, ej. 'img/candela.jpg'.
+    foto: null,
+    fotoAlt: 'Retrato de Candela Bulacio',
     presentacion:
       'Soy Candela. Trabajo entre la comunicación, la creatividad y el marketing, y me gusta llevar ideas a proyectos digitales concretos que conecten marcas con personas.',
   },

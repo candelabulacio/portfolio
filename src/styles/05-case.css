@@ -8,10 +8,11 @@
 .case__tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.25rem; }
 
 .case__title {
-  font-size: clamp(3.25rem, 1rem + 10vw, 10rem);
-  font-weight: 500;
+  font-size: clamp(3rem, 1rem + 8vw, 8.5rem);
+  font-weight: 700;
   line-height: 0.88;
-  letter-spacing: -0.06em;
+  letter-spacing: -0.035em;
+  text-transform: uppercase;
   margin-left: -0.04em;
 }
 .case__lede {
@@ -40,7 +41,7 @@
   border-radius: var(--radius);
 }
 .case__cover .cover-type { padding: clamp(1.25rem, 1rem + 2vw, 3rem); }
-.case__cover .cover-type span { font-size: clamp(3rem, 1rem + 9vw, 9rem); }
+.case__cover .cover-type span { font-size: clamp(3rem, 1rem + 8vw, 8rem); font-weight: 700; text-transform: uppercase; letter-spacing: -0.035em; }
 
 .case__body { padding-block: clamp(3rem, 2rem + 5vw, 7rem); }
 .case__section {

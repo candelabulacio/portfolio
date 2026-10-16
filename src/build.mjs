@@ -40,6 +40,7 @@ for (const p of ctx.proyectos) {
   for (const img of [p.portada, ...(p.galeria || []).map((g) => g.src || g.video)].filter(Boolean))
     if (!(await exists(join(ROOT, 'public', img)))) errores.push(`Falta la imagen ${img} (${p.slug})`);
 }
+if (ctx.sitio.hero.foto && !(await exists(join(ROOT, 'public', ctx.sitio.hero.foto)))) errores.push(`Falta la foto ${ctx.sitio.hero.foto}`);
 if (ctx.sobreMi.foto && !(await exists(join(ROOT, 'public', ctx.sobreMi.foto)))) errores.push(`Falta la foto ${ctx.sobreMi.foto}`);
 if (errores.length) {
   console.error('\nNo se pudo generar el sitio:\n- ' + errores.join('\n- '));

@@ -29,10 +29,13 @@ const header = (ctx) => html`
         <ol class="nav__list">
           ${SECCIONES.map(
             (s, i) =>
-              `<li><a class="nav__link" href="${ctx.root}#${s.id}" data-nav-link="${s.id}"><span class="nav__num" aria-hidden="true">${num(i)}</span>${s.nombre}</a></li>`
+              `<li><a class="nav__link" href="${ctx.root}#${s.id}" data-nav-link="${s.id}">${s.nombre}</a></li>`
           )}
         </ol>
-        <div class="nav__cv">${cvButton(ctx, 'btn btn--small')}</div>
+        <div class="nav__cta">
+          ${ctx.cvDisponible ? cvButton(ctx, 'btn btn--small') : ''}
+          <a class="btn btn--solid btn--small" href="${ctx.root}#contacto">Hablemos</a>
+        </div>
       </div>
     </nav>
   </div>
@@ -76,7 +79,7 @@ export const layout = (ctx, { titulo, descripcion, ruta = '', main, tipo = 'webs
 <link rel="icon" href="${ctx.root}favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap">
 <link rel="stylesheet" href="${ctx.root}assets/site.css?v=${ctx.version}">
 <script type="application/ld+json">${JSON.stringify(persona)}</script>
 <script>document.documentElement.classList.add('js')</script>

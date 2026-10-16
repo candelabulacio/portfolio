@@ -5,28 +5,40 @@ import { cover, estadoTag } from './project.mjs';
 const idx = (id) => SECCIONES.findIndex((s) => s.id === id);
 
 /* ---------- Inicio ---------- */
+
+// Asterisco de marca (detalle en terracota junto al nombre)
+export const asterisk = (cls = 'asterisk') =>
+  `<svg class="${cls}" viewBox="0 0 100 100" aria-hidden="true" focusable="false">${[0, 45, 90, 135]
+    .map((r) => `<rect x="41" y="4" width="18" height="92" rx="9" transform="rotate(${r} 50 50)"/>`)
+    .join('')}</svg>`;
+
 export const hero = (ctx) => {
   const { sitio } = ctx;
   const [nombre, ...apellido] = sitio.nombre.split(' ');
+  const foto = sitio.hero.foto;
   return html`
 <section class="hero" id="inicio" aria-labelledby="hero-name">
-  <div class="wrap">
-    <h1 class="hero__name" id="hero-name">
-      <span class="hero__first">${esc(nombre)}</span>
-      <span class="hero__last">${esc(apellido.join(' '))}</span>
-    </h1>
-    <div class="hero__grid">
+  <div class="wrap hero__grid">
+    <div class="hero__main">
       <p class="hero__descriptor">${esc(sitio.descriptor)}</p>
-      <p class="hero__headline">${sitio.hero.titular.map((l) => `<span>${esc(l)}</span>`)}</p>
-      <div class="hero__intro">
-        <p>${t(sitio.hero.presentacion)}</p>
-        <ul class="hero__actions" aria-label="Accesos rápidos">
-          <li><a class="btn btn--solid btn--large" href="#contacto">Hablemos de tu proyecto</a></li>
-          <li><a class="btn btn--large" href="#proyectos">Ver proyectos</a></li>
-          <li><a class="link" href="#experiencia">Experiencia y CV</a></li>
-        </ul>
-      </div>
+      <h1 class="hero__name" id="hero-name">
+        <span class="hero__first">${esc(nombre)}${asterisk('asterisk hero__mark')}</span>
+        <span class="hero__last">${esc(apellido.join(' '))}</span>
+      </h1>
+      <p class="hero__intro"><strong>${sitio.hero.titular.map(esc).join(' ')}</strong> ${t(sitio.hero.presentacion)}</p>
+      <ul class="hero__actions" aria-label="Accesos rápidos">
+        <li><a class="btn btn--solid btn--large" href="#contacto">Hablemos de tu proyecto</a></li>
+        <li><a class="btn btn--large" href="#proyectos">Ver proyectos</a></li>
+        <li><a class="link" href="#experiencia">Experiencia y CV</a></li>
+      </ul>
     </div>
+    <figure class="hero__photo">
+      ${
+        foto
+          ? `<img src="${ctx.root}${esc(foto)}" alt="${esc(sitio.hero.fotoAlt || '')}" width="800" height="1000" fetchpriority="high">`
+          : `<div class="hero__photo-empty">${asterisk('asterisk')}<mark class="todo">[COMPLETAR: foto de retrato]</mark></div>`
+      }
+    </figure>
   </div>
 </section>`;
 };
@@ -101,89 +113,71 @@ export const experience = (ctx) => html`
 </section>`;
 
 /* ---------- Proyectos ---------- */
-const card = (ctx, p) => {
+
+const catName = (ctx, p) => ctx.categorias.find((c) => c.id === p.categorias[0])?.nombre ?? '';
+
+// Tarjeta vertical: imagen (o portada tipográfica) con el título encima, datos debajo.
+const tile = (ctx, p) => {
   if (p.estado === 'reservado') {
     return html`
-<li class="card card--reserved" data-cat="${p.categorias[0]}">
-  <div class="card__cover card__cover--empty" aria-hidden="true"><span>Próximamente</span></div>
-  <div class="card__body">
-    <span class="card__meta"><span class="tag tag--outline">Espacio reservado</span><span>${esc(ctx.categorias.find((c) => c.id === p.categorias[0])?.nombre ?? '')}</span></span>
-    <h4 class="card__title">${esc(p.titulo)}</h4>
-    <p class="card__text">${esc(p.bajada)}</p>
+<li class="tile tile--reserved" data-cat="${p.categorias[0]}">
+  <div class="tile__media"><span class="tile__title">${esc(p.titulo)}</span></div>
+  <div class="tile__info">
+    <p class="tile__meta"><span class="tag tag--outline">Espacio reservado</span><span>${esc(catName(ctx, p))}</span></p>
+    <p class="tile__text">${esc(p.bajada)}</p>
   </div>
 </li>`;
   }
-  const cat = ctx.categorias.find((c) => c.id === p.categorias[0]);
   return html`
-<li class="card" data-cat="${p.categorias[0]}">
-  <a class="card__link" href="${ctx.root}proyectos/${p.slug}/">
-    ${cover(ctx, p, 'card__cover')}
-    <div class="card__body">
-      <span class="card__meta">${estadoTag(p)}<span>${esc(cat?.nombre ?? '')}</span></span>
-      <h4 class="card__title">${esc(p.titulo)}</h4>
-      <p class="card__text">${t(p.bajada)}</p>
-      <div class="card__more">
-        ${has(p.rol) ? `<p><strong>Rol:</strong> ${esc(p.rol)}</p>` : ''}
-      </div>
-      <span class="card__cta">Ver caso de estudio</span>
+<li class="tile${p.portada ? ' tile--image' : ''}" data-cat="${p.categorias[0]}">
+  <a class="tile__link" href="${ctx.root}proyectos/${p.slug}/">
+    <div class="tile__media">
+      ${p.portada ? `<img src="${ctx.root}${esc(p.portada)}" alt="" loading="lazy" decoding="async">` : ''}
+      <span class="tile__title">${esc(p.titulo)}</span>
+    </div>
+    <div class="tile__info">
+      <p class="tile__meta">${estadoTag(p)}<span>${esc(catName(ctx, p))}</span></p>
+      <p class="tile__text">${t(p.bajada)}</p>
+      <span class="tile__cta">Ver caso de estudio</span>
     </div>
   </a>
 </li>`;
 };
 
-const feature = (ctx, p) => {
-  const cats = p.categorias.map((id) => ctx.categorias.find((c) => c.id === id)?.nombre).filter(Boolean);
+export const projects = (ctx) => {
+  // Orden: destacados primero, después por categoría. Cada proyecto aparece una sola vez.
+  const destacados = ctx.proyectos.filter((p) => p.destacado && p.estado !== 'reservado');
+  const resto = ctx.categorias.flatMap((c) => ctx.proyectos.filter((p) => !destacados.includes(p) && p.categorias[0] === c.id));
+  const lista = [...destacados, ...resto];
+  const cats = ctx.categorias.filter((c) => lista.some((p) => p.categorias[0] === c.id));
   return html`
-<article class="feature">
-  <a class="feature__link" href="${ctx.root}proyectos/${p.slug}/">
-    <div class="feature__media">${cover(ctx, p, 'feature__cover')}</div>
-    <div class="feature__body">
-      <p class="feature__meta">${estadoTag(p)}${cats.map((c) => `<span>${esc(c)}</span>`)}</p>
-      <h3 class="feature__title">${esc(p.titulo)}</h3>
-      <p class="feature__text">${t(p.bajada)}</p>
-      <span class="feature__cta">Ver caso de estudio</span>
-    </div>
-  </a>
-</article>`;
-};
-
-export const projects = (ctx) => html`
 <section class="section projects" id="proyectos" aria-labelledby="proyectos-title">
   <div class="wrap">
     ${sectionHead(
       idx('proyectos'),
       'Proyectos',
-      'Casos reales y espacios reservados para los próximos. Los proyectos conceptuales siempre se indican como tales.'
-    , 'proyectos-title')}
-    ${ctx.proyectos.filter((p) => p.destacado && p.estado !== 'reservado').map((p) => feature(ctx, p))}
+      'Casos reales y espacios reservados para los próximos. Los proyectos conceptuales siempre se indican como tales.',
+      'proyectos-title'
+    )}
   </div>
-  ${(() => {
-    // Galería por categoría: cada proyecto aparece una sola vez (los destacados van arriba)
-    const resto = ctx.proyectos.filter((p) => !p.destacado);
-    if (!resto.length) return '';
-    const cats = ctx.categorias.filter((c) => resto.some((p) => p.categorias[0] === c.id));
-    return html`
   <div class="shelf" data-shelf>
     <div class="wrap shelf__head">
-      <h3 class="shelf__title" id="shelf-proyectos-title">Más proyectos por categoría</h3>
+      <div class="filters" role="group" aria-label="Filtrar por categoría" data-filters hidden>
+        <button class="filters__btn" type="button" aria-pressed="true" data-cat="">Todos</button>
+        ${cats.map((c) => `<button class="filters__btn" type="button" aria-pressed="false" data-cat="${c.id}">${esc(c.nombre)}</button>`)}
+      </div>
       <div class="shelf__controls">
         <p class="shelf__pos" data-shelf-pos aria-live="polite"></p>
         <button class="shelf__btn" type="button" data-shelf-prev aria-controls="shelf-proyectos" aria-label="Proyectos anteriores"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
         <button class="shelf__btn" type="button" data-shelf-next aria-controls="shelf-proyectos" aria-label="Proyectos siguientes"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
       </div>
     </div>
-    <div class="wrap">
-      <div class="filters" role="group" aria-label="Filtrar por categoría" data-filters hidden>
-        <button class="filters__btn" type="button" aria-pressed="true" data-cat="">Todas</button>
-        ${cats.map((c) => `<button class="filters__btn" type="button" aria-pressed="false" data-cat="${c.id}">${esc(c.nombre)}</button>`)}
-      </div>
-    </div>
-    <ul class="shelf__track" id="shelf-proyectos" aria-labelledby="shelf-proyectos-title" data-shelf-track>
-      ${ctx.categorias.flatMap((c) => resto.filter((p) => p.categorias[0] === c.id)).map((p) => card(ctx, p))}
+    <ul class="shelf__track shelf__track--tiles" id="shelf-proyectos" aria-label="Proyectos" data-shelf-track>
+      ${lista.map((p) => tile(ctx, p))}
     </ul>
-  </div>`;
-  })()}
+  </div>
 </section>`;
+};
 
 /* ---------- Habilidades ---------- */
 export const skills = (ctx) => {
