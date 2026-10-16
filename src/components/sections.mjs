@@ -154,9 +154,13 @@ export const projects = (ctx) => {
         ${cats.map((c) => `<button class="filters__btn" type="button" aria-pressed="false" data-cat="${c.id}">${esc(c.nombre)}</button>`)}
       </div>
     </div>
-    <ul class="projects__grid" aria-label="Proyectos" data-filter-list>
+  </div>
+  <div class="marquee" data-marquee>
+    <ul class="marquee__track" aria-label="Proyectos" data-filter-list>
       ${lista.map((p) => tile(ctx, p))}
     </ul>
+  </div>
+  <div class="wrap">
     <p class="projects__note">Los proyectos conceptuales y los espacios reservados se indican como tales.</p>
   </div>
 </section>`;

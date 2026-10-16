@@ -255,24 +255,42 @@ details[open] .job__icon::after { transform: rotate(0deg); }
   text-transform: uppercase;
 }
 
-/* Grilla: todos los proyectos a la vista, sin carrusel */
-.projects__grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: clamp(1.5rem, 1rem + 1.5vw, 2.5rem) var(--gap);
+.projects__note { margin: 1.5rem 0 0; font-size: var(--step--1); color: var(--tinta-2); }
+
+/* Cinta de proyectos: avanza sola de derecha a izquierda y se frena al pasar el mouse */
+.marquee {
+  overflow: hidden;
+  padding-block: 1.75rem 0.5rem; /* espacio para que la tarjeta agrandada no se corte */
+  margin-top: -1rem;
+}
+.marquee__track {
+  display: flex;
+  gap: var(--gap);
+  width: max-content;
+  padding-inline: var(--gutter);
   list-style: none;
 }
-.projects__grid > li[hidden] { display: none; }
-.projects__grid .tile__media { aspect-ratio: 4 / 3; }
-.projects__note { margin: 2rem 0 0; font-size: var(--step--1); color: var(--tinta-2); }
-/* Al pasar el mouse (o enfocar con teclado) la tarjeta se agranda */
-.projects__grid > li { position: relative; transition: transform 0.35s var(--ease); }
-@media (hover: hover) and (pointer: fine) {
-  .projects__grid > li:hover { transform: scale(1.05); z-index: 1; }
+.marquee__track > li { flex: none; width: clamp(16rem, 24vw, 23rem); }
+.marquee__track > li[hidden] { display: none; }
+.marquee__track .tile__media { aspect-ratio: 4 / 3; }
+.marquee__track.is-moving { animation: cinta var(--duracion, 40s) linear infinite; }
+.marquee:hover .marquee__track,
+.marquee:focus-within .marquee__track { animation-play-state: paused; }
+@keyframes cinta { to { transform: translateX(var(--recorrido, -50%)); } }
+
+/* Sin animación (movimiento reducido o sin JS): se desplaza a mano */
+@media (prefers-reduced-motion: reduce) {
+  .marquee { overflow-x: auto; scroll-snap-type: x mandatory; }
+  .marquee__track > li { scroll-snap-align: start; }
 }
-.projects__grid > li:focus-within { transform: scale(1.05); z-index: 1; }
-@media (max-width: 60rem) { .projects__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-@media (max-width: 36rem) { .projects__grid { grid-template-columns: 1fr; } }
+html:not(.js) .marquee { overflow-x: auto; }
+
+/* Al pasar el mouse (o enfocar con teclado) la tarjeta se agranda */
+.marquee__track > li { position: relative; transition: transform 0.35s var(--ease); }
+@media (hover: hover) and (pointer: fine) {
+  .marquee__track > li:hover { transform: scale(1.08); z-index: 1; }
+}
+.marquee__track > li:focus-within { transform: scale(1.08); z-index: 1; }
 
 /* Estanterías horizontales por categoría */
 
