@@ -59,7 +59,7 @@
 
   /* ---------- Sección actual en la navegación ---------- */
   const links = $$('[data-nav-link]');
-  const sections = links.map((a) => document.getElementById(a.dataset.navLink)).filter(Boolean);
+  const sections = links.length ? $$('main section[id]') : [];
   if (sections.length) {
     const visible = new Map();
     const update = () => {
