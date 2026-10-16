@@ -130,7 +130,8 @@
     const next = $('[data-shelf-next]', shelf);
     const pos = $('[data-shelf-pos]', shelf);
     if (!track) return;
-    const cards = [...track.children];
+    const all = [...track.children];
+    let cards = all;
 
     const step = () => {
       const first = cards[0];
@@ -172,6 +173,23 @@
     addEventListener('resize', update);
     // Las tarjetas que reciben foco con teclado se acomodan a la vista
     track.addEventListener('focusin', (e) => e.target.closest('li')?.scrollIntoView({ block: 'nearest', inline: 'nearest', behavior: reduceMotion ? 'auto' : 'smooth' }));
+    // Filtros por categoría (si la estantería los tiene)
+    const filters = $('[data-filters]', shelf);
+    if (filters) {
+      filters.hidden = false;
+      const btns = $$('[data-cat]', filters);
+      btns.forEach((btn) =>
+        btn.addEventListener('click', () => {
+          const cat = btn.dataset.cat;
+          btns.forEach((b) => b.setAttribute('aria-pressed', String(b === btn)));
+          all.forEach((li) => (li.hidden = Boolean(cat) && li.dataset.cat !== cat));
+          cards = all.filter((li) => !li.hidden);
+          track.scrollLeft = 0;
+          update();
+        })
+      );
+    }
+
     update();
   });
 

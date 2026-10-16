@@ -18,8 +18,9 @@ export default {
 
   hero: {
     titular: ['Ideas con intención.', 'Comunicación con identidad.'],
+    // Dos o tres líneas como máximo.
     presentacion:
-      'Soy Candela, creativa en comunicación y marketing. Me interesa explorar ideas, construir identidades y desarrollar estrategias que conecten marcas con personas.',
+      'Soy Candela. Trabajo entre la comunicación, la creatividad y el marketing, y me gusta llevar ideas a proyectos digitales concretos que conecten marcas con personas.',
   },
 
   // Ubicación pública opcional. Dejar en null para no mostrarla.

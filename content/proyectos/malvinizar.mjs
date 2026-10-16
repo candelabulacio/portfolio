@@ -5,6 +5,7 @@
 export default {
   slug: 'malvinizar',
   estado: 'real',
+  destacado: true, // se muestra en grande al principio de Proyectos
   tipo: 'Proyecto académico',
   titulo: 'MalvinizAR',
   categorias: ['diseno-web', 'comunicacion-marketing'],

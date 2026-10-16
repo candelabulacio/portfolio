@@ -21,10 +21,9 @@ export const hero = (ctx) => {
       <div class="hero__intro">
         <p>${t(sitio.hero.presentacion)}</p>
         <ul class="hero__actions" aria-label="Accesos rápidos">
-          <li><a class="btn btn--solid" href="#proyectos">Ver proyectos</a></li>
-          <li><a class="btn" href="#experiencia">Ver experiencia</a></li>
-          <li>${cvButton(ctx)}</li>
-          <li><a class="link" href="#contacto">Contacto</a></li>
+          <li><a class="btn btn--solid btn--large" href="#contacto">Hablemos de tu proyecto</a></li>
+          <li><a class="btn btn--large" href="#proyectos">Ver proyectos</a></li>
+          <li><a class="link" href="#experiencia">Experiencia y CV</a></li>
         </ul>
       </div>
     </div>
@@ -105,10 +104,10 @@ export const experience = (ctx) => html`
 const card = (ctx, p) => {
   if (p.estado === 'reservado') {
     return html`
-<li class="card card--reserved">
-  <div class="card__cover card__cover--empty" aria-hidden="true"></div>
+<li class="card card--reserved" data-cat="${p.categorias[0]}">
+  <div class="card__cover card__cover--empty" aria-hidden="true"><span>Próximamente</span></div>
   <div class="card__body">
-    <span class="tag tag--outline">Espacio reservado</span>
+    <span class="card__meta"><span class="tag tag--outline">Espacio reservado</span><span>${esc(ctx.categorias.find((c) => c.id === p.categorias[0])?.nombre ?? '')}</span></span>
     <h4 class="card__title">${esc(p.titulo)}</h4>
     <p class="card__text">${esc(p.bajada)}</p>
   </div>
@@ -116,7 +115,7 @@ const card = (ctx, p) => {
   }
   const cat = ctx.categorias.find((c) => c.id === p.categorias[0]);
   return html`
-<li class="card">
+<li class="card" data-cat="${p.categorias[0]}">
   <a class="card__link" href="${ctx.root}proyectos/${p.slug}/">
     ${cover(ctx, p, 'card__cover')}
     <div class="card__body">
@@ -132,6 +131,22 @@ const card = (ctx, p) => {
 </li>`;
 };
 
+const feature = (ctx, p) => {
+  const cats = p.categorias.map((id) => ctx.categorias.find((c) => c.id === id)?.nombre).filter(Boolean);
+  return html`
+<article class="feature">
+  <a class="feature__link" href="${ctx.root}proyectos/${p.slug}/">
+    <div class="feature__media">${cover(ctx, p, 'feature__cover')}</div>
+    <div class="feature__body">
+      <p class="feature__meta">${estadoTag(p)}${cats.map((c) => `<span>${esc(c)}</span>`)}</p>
+      <h3 class="feature__title">${esc(p.titulo)}</h3>
+      <p class="feature__text">${t(p.bajada)}</p>
+      <span class="feature__cta">Ver caso de estudio</span>
+    </div>
+  </a>
+</article>`;
+};
+
 export const projects = (ctx) => html`
 <section class="section projects" id="proyectos" aria-labelledby="proyectos-title">
   <div class="wrap">
@@ -140,26 +155,34 @@ export const projects = (ctx) => html`
       'Proyectos',
       'Casos reales y espacios reservados para los próximos. Los proyectos conceptuales siempre se indican como tales.'
     , 'proyectos-title')}
+    ${ctx.proyectos.filter((p) => p.destacado && p.estado !== 'reservado').map((p) => feature(ctx, p))}
   </div>
-  ${ctx.categorias.map((c) => {
-    const lista = ctx.proyectos.filter((p) => p.categorias[0] === c.id); // cada proyecto aparece en su categoría principal
-    if (!lista.length) return '';
-    const id = `shelf-${c.id}`;
+  ${(() => {
+    // Galería por categoría: cada proyecto aparece una sola vez (los destacados van arriba)
+    const resto = ctx.proyectos.filter((p) => !p.destacado);
+    if (!resto.length) return '';
+    const cats = ctx.categorias.filter((c) => resto.some((p) => p.categorias[0] === c.id));
     return html`
   <div class="shelf" data-shelf>
     <div class="wrap shelf__head">
-      <h3 class="shelf__title" id="${id}-title">${esc(c.nombre)}</h3>
+      <h3 class="shelf__title" id="shelf-proyectos-title">Más proyectos por categoría</h3>
       <div class="shelf__controls">
         <p class="shelf__pos" data-shelf-pos aria-live="polite"></p>
-        <button class="shelf__btn" type="button" data-shelf-prev aria-controls="${id}" aria-label="Anteriores en ${esc(c.nombre)}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
-        <button class="shelf__btn" type="button" data-shelf-next aria-controls="${id}" aria-label="Siguientes en ${esc(c.nombre)}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
+        <button class="shelf__btn" type="button" data-shelf-prev aria-controls="shelf-proyectos" aria-label="Proyectos anteriores"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+        <button class="shelf__btn" type="button" data-shelf-next aria-controls="shelf-proyectos" aria-label="Proyectos siguientes"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
       </div>
     </div>
-    <ul class="shelf__track" id="${id}" aria-labelledby="${id}-title" data-shelf-track>
-      ${lista.map((p) => card(ctx, p))}
+    <div class="wrap">
+      <div class="filters" role="group" aria-label="Filtrar por categoría" data-filters hidden>
+        <button class="filters__btn" type="button" aria-pressed="true" data-cat="">Todas</button>
+        ${cats.map((c) => `<button class="filters__btn" type="button" aria-pressed="false" data-cat="${c.id}">${esc(c.nombre)}</button>`)}
+      </div>
+    </div>
+    <ul class="shelf__track" id="shelf-proyectos" aria-labelledby="shelf-proyectos-title" data-shelf-track>
+      ${ctx.categorias.flatMap((c) => resto.filter((p) => p.categorias[0] === c.id)).map((p) => card(ctx, p))}
     </ul>
   </div>`;
-  })}
+  })()}
 </section>`;
 
 /* ---------- Habilidades ---------- */
@@ -239,11 +262,11 @@ export const services = (ctx) => {
   return html`
 <section class="section services" id="servicios" aria-labelledby="servicios-title">
   <div class="wrap">
-    ${sectionHead(idx('servicios'), 'Servicios y colaboraciones', s.intro, 'servicios-title')}
+    ${sectionHead(-1, 'En qué puedo ayudarte', s.intro, 'servicios-title')}
     <ul class="services__list">
       ${s.areas.map((a) => `<li><h3>${esc(a.nombre)}</h3><p>${t(a.texto)}</p></li>`)}
     </ul>
-    <p class="services__cta"><a class="btn btn--solid" href="#contacto">Contame tu proyecto</a></p>
+    <p class="services__cta"><a class="btn btn--solid btn--large" href="#contacto">Hablemos de tu proyecto</a></p>
   </div>
 </section>`;
 };

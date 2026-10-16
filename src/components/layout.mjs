@@ -1,12 +1,13 @@
 import { esc, html } from '../lib/html.mjs';
 
+// Secciones del menú, en el mismo orden en que aparecen en la página.
+// "Servicios" está en Inicio pero no en el menú.
 export const SECCIONES = [
+  { id: 'proyectos', nombre: 'Proyectos' },
   { id: 'sobre-mi', nombre: 'Sobre mí' },
   { id: 'experiencia', nombre: 'Experiencia' },
-  { id: 'proyectos', nombre: 'Proyectos' },
   { id: 'habilidades', nombre: 'Habilidades' },
   { id: 'formacion', nombre: 'Formación' },
-  { id: 'servicios', nombre: 'Servicios' },
   { id: 'contacto', nombre: 'Contacto' },
 ];
 
@@ -97,7 +98,7 @@ ${footer(ctx)}
 /** Encabezado de sección numerado. */
 export const sectionHead = (i, titulo, intro = '', id = '') => html`
 <header class="section-head">
-  <span class="section-head__num" aria-hidden="true">${num(i)}</span>
+  <span class="section-head__num" aria-hidden="true">${i >= 0 ? num(i) : ''}</span>
   <h2 class="section-head__title"${id ? ` id="${id}"` : ''}>${esc(titulo)}</h2>
   ${intro ? `<p class="section-head__intro">${esc(intro)}</p>` : ''}
 </header>`;

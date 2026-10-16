@@ -64,7 +64,7 @@ const write = async (rel, content) => {
 };
 
 // Home
-const home = [S.hero, S.about, S.experience, S.projects, S.skills, S.education, S.services, S.contact].map((f) => f({ ...ctx, root: '' })).join('\n');
+const home = [S.hero, S.projects, S.services, S.about, S.experience, S.skills, S.education, S.contact].map((f) => f({ ...ctx, root: '' })).join('\n');
 await write('index.html', layout({ ...ctx, root: '' }, { titulo: ctx.sitio.seo.titulo, descripcion: ctx.sitio.seo.descripcion, main: home }));
 
 // Casos de estudio
