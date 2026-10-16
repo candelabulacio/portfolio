@@ -10,12 +10,11 @@ html {
 
 body {
   margin: 0;
-  background: var(--marfil);
-  color: var(--negro);
+  background: var(--crema);
+  color: var(--bordo);
   font-family: var(--font-text);
   font-size: var(--step-0);
   line-height: 1.6;
-  font-feature-settings: 'ss01', 'cv11';
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
 }
@@ -23,7 +22,7 @@ body {
 h1, h2, h3, h4 {
   margin: 0;
   font-family: var(--font-display);
-  font-weight: 500;
+  font-weight: 600;
   line-height: 1.1;
   letter-spacing: -0.02em;
 }
@@ -34,10 +33,10 @@ img, video { display: block; max-width: 100%; height: auto; }
 ul, ol { margin: 0; padding: 0; }
 dl, dd { margin: 0; }
 
-::selection { background: var(--lavanda); color: var(--negro); }
+::selection { background: var(--caramelo); color: var(--bordo); }
 
 :focus-visible {
-  outline: 2px solid var(--negro);
+  outline: 2px solid var(--bordo);
   outline-offset: 3px;
   border-radius: 2px;
 }
@@ -64,8 +63,8 @@ main:focus { outline: none; }
   top: 0.75rem; left: 0.75rem;
   z-index: 100;
   padding: 0.6rem 1rem;
-  background: var(--negro);
-  color: var(--marfil);
+  background: var(--bordo);
+  color: var(--crema);
   border-radius: 999px;
   transform: translateY(-200%);
   transition: transform 0.2s var(--ease);
@@ -74,7 +73,7 @@ main:focus { outline: none; }
 
 .plain { list-style: none; }
 
-/* Enlaces de texto: subrayado fino que se engrosa y toma la terracota */
+/* Enlaces de texto: subrayado fino que se engrosa y toma la canela */
 .link {
   color: inherit;
   font-weight: 500;
@@ -85,7 +84,7 @@ main:focus { outline: none; }
   transition: text-decoration-color 0.2s, text-underline-offset 0.2s var(--ease);
 }
 .link:hover {
-  text-decoration-color: var(--terracota);
+  text-decoration-color: var(--canela);
   text-decoration-thickness: 2px;
   text-underline-offset: 0.3em;
 }
@@ -102,27 +101,29 @@ main:focus { outline: none; }
   gap: 0.5em;
   min-height: 2.75rem;
   padding: 0.6em 1.25em;
-  border: 1px solid var(--negro);
+  border: 1px solid var(--bordo);
   border-radius: 999px;
   background: transparent;
-  color: var(--negro);
-  font: 500 0.9375rem/1.2 var(--font-text);
+  color: var(--bordo);
+  font: 600 0.8125rem/1.2 var(--font-text);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
   text-decoration: none;
   white-space: nowrap;
   cursor: pointer;
   transition: background-color 0.2s, color 0.2s, border-color 0.2s;
 }
-.btn:hover { background: var(--negro); color: var(--marfil); }
-.btn--solid { background: var(--negro); color: var(--marfil); }
-.btn--solid:hover { background: var(--lavanda); border-color: var(--lavanda); color: var(--negro); }
-.btn--large { min-height: 3.25rem; padding: 0.8em 1.6em; font-size: 1rem; }
-.btn--small { min-height: 2.25rem; padding: 0.4em 1em; font-size: var(--step--1); }
+.btn:hover { background: var(--bordo); color: var(--crema); }
+.btn--solid { background: var(--bordo); color: var(--crema); }
+.btn--solid:hover { background: var(--caramelo); border-color: var(--caramelo); color: var(--bordo); }
+.btn--large { min-height: 3.25rem; padding: 0.8em 1.7em; font-size: 0.875rem; }
+.btn--small { min-height: 2.25rem; padding: 0.45em 1.1em; font-size: 0.75rem; }
 .btn.is-pending,
 .btn.is-pending:hover {
   border-style: dashed;
   border-color: var(--linea-fuerte);
   background: transparent;
-  color: var(--negro-2);
+  color: var(--marron);
   cursor: default;
 }
 
@@ -135,15 +136,15 @@ main:focus { outline: none; }
   letter-spacing: 0;
   white-space: nowrap;
 }
-.tag--soft { background: var(--lavanda-suave); }
-.tag--accent { background: var(--lavanda); }
+.tag--soft { background: var(--arena); }
+.tag--accent { background: var(--caramelo); }
 .tag--outline { border: 1px solid var(--linea-fuerte); }
 
 /* Datos pendientes de completar */
 mark.todo {
-  background: rgb(184 93 70 / 0.1);
-  color: #8A3F2D;
-  outline: 1px dashed var(--terracota);
+  background: rgb(160 100 74 / 0.1);
+  color: #7A3B2A;
+  outline: 1px dashed var(--canela);
   outline-offset: -1px;
   border-radius: 2px;
   padding: 0.05em 0.35em;

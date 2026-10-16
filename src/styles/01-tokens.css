@@ -4,23 +4,27 @@
    ========================================================== */
 
 :root {
-  /* Paleta de marca */
-  --marfil: #F5F2EC;
-  --negro: #20201E;
-  --lavanda: #B8C4FF;
-  --terracota: #B85D46;
+  /* Paleta de marca: bordó, marrones y crema */
+  --crema: #F3ECE3;            /* fondo */
+  --bordo: #3A1214;            /* texto principal, botones y fondos oscuros */
+  --marron: #6B4A40;           /* texto secundario: contraste 6,7:1 sobre crema */
+  --caramelo: #C9A68A;         /* acentos y títulos sobre bordó */
+  --arena: #E7DACB;            /* fondos suaves, etiquetas, espacios vacíos */
+  --canela: #9A5A40;           /* detalles puntuales: subrayados al pasar el mouse */
 
-  /* Derivados (para texto secundario, líneas y fondos suaves) */
-  --negro-2: #5A5852;          /* texto secundario: contraste 6:1 sobre marfil */
-  --lavanda-suave: #E2E7FF;    /* fondos suaves */
-  --linea: rgb(32 32 30 / 0.16);
-  --linea-fuerte: rgb(32 32 30 / 0.4);
-  --marfil-2: rgb(245 242 236 / 0.68); /* texto secundario sobre negro */
-  --linea-clara: rgb(245 242 236 / 0.18);
+  /* Derivados (líneas y texto sobre fondo oscuro) */
+  --linea: rgb(58 18 20 / 0.16);
+  --linea-fuerte: rgb(58 18 20 / 0.4);
+  --crema-2: rgb(243 236 227 / 0.7);
+  --linea-clara: rgb(243 236 227 / 0.18);
 
   /* Tipografía */
-  --font-display: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
-  --font-text: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  /* Archivo: sans grotesca; en títulos se usa ancha (wdth 115) y muy bold.
+     Cormorant Garamond: serif para los nombres de proyectos, como logotipos. */
+  --font-display: 'Archivo', ui-sans-serif, system-ui, sans-serif;
+  --font-text: 'Archivo', ui-sans-serif, system-ui, sans-serif;
+  --font-serif: 'Cormorant Garamond', 'Times New Roman', serif;
+  --ancho-titulos: 115%;
 
   --step--1: 0.8125rem;
   --step-0: 1.0625rem;

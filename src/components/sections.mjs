@@ -6,7 +6,7 @@ const idx = (id) => SECCIONES.findIndex((s) => s.id === id);
 
 /* ---------- Inicio ---------- */
 
-// Asterisco de marca (detalle en terracota junto al nombre)
+// Asterisco de marca junto al nombre
 export const asterisk = (cls = 'asterisk') =>
   `<svg class="${cls}" viewBox="0 0 100 100" aria-hidden="true" focusable="false">${[0, 45, 90, 135]
     .map((r) => `<rect x="41" y="4" width="18" height="92" rx="9" transform="rotate(${r} 50 50)"/>`)
