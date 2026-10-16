@@ -195,19 +195,60 @@
     update();
   });
 
-  /* ---------- Filtros de la grilla de proyectos ---------- */
-  $$('[data-filter-list]').forEach((list) => {
-    const filters = list.parentElement.querySelector('[data-filters]');
-    if (!filters) return;
-    filters.hidden = false;
-    const btns = $$('[data-cat]', filters);
-    btns.forEach((btn) =>
-      btn.addEventListener('click', () => {
-        const cat = btn.dataset.cat;
-        btns.forEach((b) => b.setAttribute('aria-pressed', String(b === btn)));
-        [...list.children].forEach((li) => (li.hidden = Boolean(cat) && li.dataset.cat !== cat));
-      })
-    );
+  /* ---------- Proyectos: cinta que avanza de derecha a izquierda + filtros ---------- */
+  $$('[data-marquee]').forEach((marquee) => {
+    const track = $('[data-filter-list]', marquee);
+    const originals = [...track.children];
+    const filters = $('[data-filters]', marquee.closest('section'));
+
+    // Duplica las tarjetas visibles para que la cinta no tenga cortes.
+    // Las copias no las leen los lectores de pantalla ni reciben foco con Tab.
+    const build = () => {
+      $$('[data-clone]', track).forEach((n) => n.remove());
+      track.classList.remove('is-moving');
+      const visibles = originals.filter((li) => !li.hidden);
+      if (!visibles.length || reduceMotion) return;
+      const gap = parseFloat(getComputedStyle(track).columnGap) || 0;
+      const largo = visibles.reduce((w, li) => w + li.offsetWidth + gap, 0);
+      let total = largo;
+      while (total < marquee.clientWidth + largo) {
+        visibles.forEach((li) => {
+          const c = li.cloneNode(true);
+          c.dataset.clone = '';
+          c.setAttribute('aria-hidden', 'true');
+          // se pueden clickear con el mouse, pero no entran en el recorrido con Tab
+          $$('a, button', c).forEach((el) => el.setAttribute('tabindex', '-1'));
+          track.append(c);
+        });
+        total += largo;
+      }
+      track.style.setProperty('--recorrido', `-${largo}px`);
+      track.style.setProperty('--duracion', `${Math.max(visibles.length, 3) * 7}s`);
+      void track.offsetWidth; // reinicia la animación
+      track.classList.add('is-moving');
+    };
+
+    if (filters) {
+      filters.hidden = false;
+      const btns = $$('[data-cat]', filters);
+      btns.forEach((btn) =>
+        btn.addEventListener('click', () => {
+          const cat = btn.dataset.cat;
+          btns.forEach((b) => b.setAttribute('aria-pressed', String(b === btn)));
+          originals.forEach((li) => (li.hidden = Boolean(cat) && li.dataset.cat !== cat));
+          marquee.scrollLeft = 0;
+          build();
+        })
+      );
+    }
+
+    let t;
+    addEventListener('resize', () => {
+      clearTimeout(t);
+      t = setTimeout(build, 200);
+    });
+    document.fonts?.ready.then(build);
+    build();
   });
 
   /* ---------- Pestañas de habilidades ---------- */
