@@ -20,17 +20,11 @@ export const hero = (ctx) => {
 <section class="hero" id="inicio" aria-labelledby="hero-name">
   <div class="wrap hero__grid">
     <div class="hero__main">
-      <p class="hero__descriptor">${esc(sitio.descriptor)}</p>
       <h1 class="hero__name" id="hero-name">
         <span class="hero__first">${esc(nombre)}${asterisk('asterisk hero__mark')}</span>
         <span class="hero__last">${esc(apellido.join(' '))}</span>
       </h1>
-      <p class="hero__intro"><strong>${sitio.hero.titular.map(esc).join(' ')}</strong> ${t(sitio.hero.presentacion)}</p>
-      <ul class="hero__actions" aria-label="Accesos rápidos">
-        <li><a class="btn btn--solid btn--large" href="#contacto">Hablemos de tu proyecto</a></li>
-        <li><a class="btn btn--large" href="#proyectos">Ver proyectos</a></li>
-        <li><a class="link" href="${hrefSeccion(ctx, 'experiencia')}">Experiencia y CV</a></li>
-      </ul>
+      <p class="hero__intro">${t(sitio.hero.frase)}</p>
     </div>
     <figure class="hero__photo">
       ${

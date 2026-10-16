@@ -16,14 +16,13 @@ export default {
       'Portfolio y CV de Candela Bulacio: comunicación, marketing, branding, contenidos y desarrollo web.',
   },
 
+  // Portada: solo el nombre y esta frase.
   hero: {
-    titular: ['Ideas con intención.', 'Comunicación con identidad.'],
-    // Dos o tres líneas como máximo.
+    frase:
+      'Desarrollo estrategias de comunicación y marketing que combinan creatividad, análisis y ejecución para generar impacto.',
     // Foto de la portada: guardala en public/img/ y escribí la ruta, ej. 'img/candela.jpg'.
     foto: null,
     fotoAlt: 'Retrato de Candela Bulacio',
-    presentacion:
-      'Soy Candela. Trabajo entre la comunicación, la creatividad y el marketing, y me gusta llevar ideas a proyectos digitales concretos que conecten marcas con personas.',
   },
 
   // Ubicación pública opcional. Dejar en null para no mostrarla.
