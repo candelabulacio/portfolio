@@ -4,19 +4,20 @@
    ========================================================== */
 
 :root {
-  /* Paleta de marca: bordó, marrones y crema */
-  --crema: #F3ECE3;            /* fondo */
-  --bordo: #3A1214;            /* texto principal, botones y fondos oscuros */
-  --marron: #6B4A40;           /* texto secundario: contraste 6,7:1 sobre crema */
-  --caramelo: #C9A68A;         /* acentos y títulos sobre bordó */
-  --arena: #E7DACB;            /* fondos suaves, etiquetas, espacios vacíos */
-  --canela: #9A5A40;           /* detalles puntuales: subrayados al pasar el mouse */
+  /* Paleta de marca */
+  --fondo: #FBF9F2;            /* Linen: fondo */
+  --tinta: #192F3B;            /* Midnight: texto, botones y fondos oscuros */
+  --tinta-2: #4D5E68;          /* texto secundario: contraste 6,4:1 sobre Linen */
+  --acento: #FFD869;           /* Sunshine: pestaña activa, destacados, títulos sobre Midnight */
+  --suave: #FDEBF3;            /* Peony: fondos suaves y etiquetas */
+  --verde: #C7CE9A;            /* Meadow: detalles gráficos y espacio de la foto */
+  --detalle: #7E8A46;          /* Meadow oscuro: subrayados al pasar el mouse */
 
   /* Derivados (líneas y texto sobre fondo oscuro) */
-  --linea: rgb(58 18 20 / 0.16);
-  --linea-fuerte: rgb(58 18 20 / 0.4);
-  --crema-2: rgb(243 236 227 / 0.7);
-  --linea-clara: rgb(243 236 227 / 0.18);
+  --linea: rgb(25 47 59 / 0.16);
+  --linea-fuerte: rgb(25 47 59 / 0.4);
+  --fondo-2: rgb(251 249 242 / 0.7);
+  --linea-clara: rgb(251 249 242 / 0.18);
 
   /* Tipografía */
   /* Archivo: sans grotesca; en títulos se usa ancha (wdth 115) y muy bold.

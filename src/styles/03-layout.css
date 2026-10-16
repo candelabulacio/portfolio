@@ -4,7 +4,7 @@
   position: sticky;
   top: 0;
   z-index: 50;
-  background: var(--crema);
+  background: var(--fondo);
   border-bottom: 1px solid transparent;
   transition: border-color 0.3s;
 }
@@ -35,14 +35,14 @@
   align-items: center;
   min-height: 2.5rem;
   padding: 0.4em 1em;
-  border: 1px solid var(--bordo);
+  border: 1px solid var(--tinta);
   border-radius: 999px;
   background: none;
   color: inherit;
   font: 500 var(--step--1)/1 var(--font-text);
   cursor: pointer;
 }
-.nav__toggle[aria-expanded='true'] { background: var(--bordo); color: var(--crema); }
+.nav__toggle[aria-expanded='true'] { background: var(--tinta); color: var(--fondo); }
 
 .nav__panel { display: flex; align-items: center; gap: 1.25rem; }
 .nav__cta { display: flex; align-items: center; gap: 0.5rem; }
@@ -67,11 +67,11 @@
   text-decoration: none;
   transition: background-color 0.25s;
 }
-.nav__link:hover { background: var(--arena); }
-.nav__link[aria-current] { background: var(--caramelo); }
+.nav__link:hover { background: var(--suave); }
+.nav__link[aria-current] { background: var(--acento); }
 .nav__num {
   font: 400 0.6875rem/1 var(--font-display);
-  color: var(--marron);
+  color: var(--tinta-2);
   font-variant-numeric: tabular-nums;
 }
 
@@ -86,7 +86,7 @@
     align-items: stretch;
     gap: 2rem;
     padding: 1.5rem var(--gutter) 2rem;
-    background: var(--crema);
+    background: var(--fondo);
     border-top: 1px solid var(--linea);
     overflow-y: auto;
     visibility: hidden;
@@ -113,7 +113,7 @@
     letter-spacing: -0.01em;
     text-transform: uppercase;
   }
-  .nav__link[aria-current] { background: none; text-decoration: underline; text-decoration-color: var(--caramelo); text-decoration-thickness: 0.18em; text-underline-offset: 0.12em; }
+  .nav__link[aria-current] { background: none; text-decoration: underline; text-decoration-color: var(--acento); text-decoration-thickness: 0.18em; text-underline-offset: 0.12em; }
   .nav__link:hover { background: none; }
   .nav__num { font-size: var(--step--1); min-width: 1.75rem; }
 
@@ -145,7 +145,7 @@ body.nav-open { overflow: hidden; }
   padding-top: 0.9em;
   font: 400 var(--step-0)/1 var(--font-display);
   font-variant-numeric: tabular-nums;
-  color: var(--marron);
+  color: var(--tinta-2);
 }
 .section-head__title {
   grid-column: 3 / -1;
@@ -158,7 +158,7 @@ body.nav-open { overflow: hidden; }
 }
 .section-head__intro {
   grid-column: 3 / span 6;
-  color: var(--marron);
+  color: var(--tinta-2);
   font-size: var(--step-1);
   line-height: 1.45;
 }
@@ -170,8 +170,8 @@ body.nav-open { overflow: hidden; }
 
 /* Pie */
 .site-footer {
-  background: var(--bordo);
-  color: var(--crema-2);
+  background: var(--tinta);
+  color: var(--fondo-2);
   font-size: var(--step--1);
 }
 .site-footer__inner {
@@ -181,8 +181,8 @@ body.nav-open { overflow: hidden; }
   padding-block: 1.5rem 2rem;
   border-top: 1px solid var(--linea-clara);
 }
-.site-footer .link { color: var(--crema); }
-.site-footer :focus-visible { outline-color: var(--caramelo); }
+.site-footer .link { color: var(--fondo); }
+.site-footer :focus-visible { outline-color: var(--acento); }
 
 /* En pantallas chicas los títulos anchos se angostan para que las palabras largas
    ("herramientas") no se salgan de la pantalla */

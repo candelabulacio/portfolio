@@ -75,7 +75,7 @@ export const layout = (ctx, { titulo, descripcion, ruta = '', main, tipo = 'webs
 <meta property="og:url" content="${canonical}">
 <meta property="og:site_name" content="${esc(sitio.nombre)}">
 <meta name="twitter:card" content="summary">
-<meta name="theme-color" content="#F3ECE3">
+<meta name="theme-color" content="#FBF9F2">
 <link rel="icon" href="${ctx.root}favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
