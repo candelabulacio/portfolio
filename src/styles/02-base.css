@@ -33,7 +33,7 @@ img, video { display: block; max-width: 100%; height: auto; }
 ul, ol { margin: 0; padding: 0; }
 dl, dd { margin: 0; }
 
-::selection { background: var(--acento); color: var(--tinta); }
+::selection { background: var(--rosa); color: var(--tinta); }
 
 :focus-visible {
   outline: 2px solid var(--tinta);
@@ -85,7 +85,7 @@ button, input, select, textarea { font-family: inherit; }
   transition: text-decoration-color 0.2s, text-underline-offset 0.2s var(--ease);
 }
 .link:hover {
-  text-decoration-color: var(--detalle);
+  text-decoration-color: var(--rosa);
   text-decoration-thickness: 2px;
   text-underline-offset: 0.3em;
 }
