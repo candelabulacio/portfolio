@@ -65,7 +65,7 @@ const write = async (rel, content) => {
 };
 
 // Home
-const home = [S.hero, S.projects, S.services, S.skills, S.contact].map((f) => f({ ...ctx, root: '' })).join('\n');
+const home = [S.hero, S.projects, S.contact].map((f) => f({ ...ctx, root: '' })).join('\n');
 await write('index.html', layout({ ...ctx, root: '' }, { titulo: ctx.sitio.seo.titulo, descripcion: ctx.sitio.seo.descripcion, main: home }));
 
 const rutas = [''];
@@ -84,7 +84,7 @@ for (const [id, seccion, titulo, descripcion] of [
       titulo: `${titulo} — ${ctx.sitio.nombre}`,
       descripcion,
       ruta,
-      main: `<div class="page">${seccion(c)}${S.contact(c)}</div>`,
+      main: `<div class="page">${seccion(c)}${id === 'experiencia' ? S.skills(c) : ''}${S.contact(c)}</div>`,
     })
   );
 }

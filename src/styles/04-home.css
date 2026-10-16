@@ -1,13 +1,13 @@
 /* ---------- Inicio ---------- */
 
-.hero { padding-block: clamp(1.5rem, 0.5rem + 3vw, 3.5rem) clamp(3rem, 1.5rem + 4vw, 5rem); }
+.hero { padding-block: clamp(1.5rem, 0.5rem + 2.5vw, 3rem) clamp(2rem, 1rem + 2.5vw, 3rem); }
 
 .hero__grid {
   display: grid;
   grid-template-columns: repeat(12, minmax(0, 1fr));
   column-gap: var(--gap);
   row-gap: 2rem;
-  align-items: start;
+  align-items: center;
 }
 .hero__main { grid-column: 1 / span 9; container-type: inline-size; }
 .hero__photo { grid-column: 10 / -1; margin: 0; }
@@ -62,7 +62,7 @@
 .hero__photo img,
 .hero__photo-empty {
   width: 100%;
-  aspect-ratio: 4 / 5;
+  aspect-ratio: 1 / 1;
   object-fit: cover;
   border-radius: 1.25rem;
 }
@@ -236,8 +236,36 @@ details[open] .job__icon::after { transform: rotate(0deg); }
 
 /* ---------- Proyectos ---------- */
 
-.projects { padding-top: clamp(3.5rem, 2rem + 5vw, 7rem); }
-.projects .section-head { margin-bottom: clamp(2rem, 1rem + 3vw, 3.5rem); }
+.projects { padding-block: clamp(2rem, 1rem + 3vw, 3.5rem) clamp(3rem, 2rem + 4vw, 5rem); }
+
+.projects__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem 2rem;
+  margin-bottom: clamp(1.25rem, 1rem + 1vw, 2rem);
+}
+.projects__title {
+  font-size: var(--step-3);
+  font-weight: 800;
+  font-stretch: var(--ancho-titulos);
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+}
+
+/* Grilla: todos los proyectos a la vista, sin carrusel */
+.projects__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1.5rem, 1rem + 1.5vw, 2.5rem) var(--gap);
+  list-style: none;
+}
+.projects__grid > li[hidden] { display: none; }
+.projects__grid .tile__media { aspect-ratio: 4 / 3; }
+.projects__note { margin: 2rem 0 0; font-size: var(--step--1); color: var(--tinta-2); }
+@media (max-width: 60rem) { .projects__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 36rem) { .projects__grid { grid-template-columns: 1fr; } }
 
 /* Estanterías horizontales por categoría */
 
@@ -562,27 +590,28 @@ html:not(.js) .shelf__controls,
   background: var(--tinta);
   color: var(--fondo);
   border-top: 0;
-  padding-bottom: clamp(4rem, 2rem + 6vw, 7rem);
+  padding-block: clamp(2.5rem, 1.5rem + 3vw, 4.5rem);
 }
 .contact :focus-visible { outline-color: var(--acento); }
 .contact .section-head__num { color: var(--fondo-2); }
 .contact .section-head__title { font-size: var(--step-1); letter-spacing: -0.01em; padding-top: 0.6em; }
-.contact > .wrap > :not(.section-head) { margin-left: calc((100% + var(--gap)) / 12 * 2); }
+
 
 .contact__title {
-  max-width: 16ch;
-  font: 800 var(--step-4)/0.95 var(--font-display);
+  max-width: 24ch;
+  font: 800 var(--step-3)/1 var(--font-display);
   font-stretch: var(--ancho-titulos);
-  letter-spacing: -0.02em;
+  letter-spacing: -0.01em;
   text-transform: uppercase;
+  color: var(--fondo);
   margin-bottom: 1.5rem;
 }
-.contact__text { color: var(--fondo-2); font-size: var(--step-1); line-height: 1.5; max-width: 52ch; margin-bottom: 3rem; }
+.contact__text { color: var(--fondo-2); font-size: var(--step-0); line-height: 1.5; max-width: 60ch; margin-bottom: 1.75rem; }
 
 .contact__mail {
   display: inline-block;
-  font: 500 var(--step-3)/1.1 var(--font-display);
-  letter-spacing: -0.035em;
+  font: 600 var(--step-2)/1.2 var(--font-display);
+  letter-spacing: -0.01em;
   color: var(--acento);
   text-decoration: underline;
   text-decoration-thickness: 2px;
@@ -598,7 +627,7 @@ p.contact__mail { text-decoration: none; }
   display: flex;
   flex-wrap: wrap;
   gap: 0.75rem 2rem;
-  margin-top: 2.5rem;
+  margin-top: 1.5rem;
   list-style: none;
 }
 .contact__link {
@@ -613,7 +642,7 @@ p.contact__mail { text-decoration: none; }
 }
 a.contact__link:hover { text-decoration-color: var(--acento); text-decoration-thickness: 2px; }
 .contact__link.is-pending { color: var(--fondo-2); text-decoration: none; font-weight: 400; }
-.contact__place { margin-top: 3rem; color: var(--fondo-2); font-size: var(--step--1); }
+.contact__place { margin-top: 1.5rem; color: var(--fondo-2); font-size: var(--step--1); }
 
 @media (max-width: 48rem) {
   .contact > .wrap > :not(.section-head) { margin-left: 0; }

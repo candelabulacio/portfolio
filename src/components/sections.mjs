@@ -147,28 +147,17 @@ export const projects = (ctx) => {
   return html`
 <section class="section projects" id="proyectos" aria-labelledby="proyectos-title">
   <div class="wrap">
-    ${sectionHead(
-      idx('proyectos'),
-      'Proyectos',
-      'Casos reales y espacios reservados para los próximos. Los proyectos conceptuales siempre se indican como tales.',
-      'proyectos-title'
-    )}
-  </div>
-  <div class="shelf" data-shelf>
-    <div class="wrap shelf__head">
+    <div class="projects__head">
+      <h2 class="projects__title" id="proyectos-title">Proyectos</h2>
       <div class="filters" role="group" aria-label="Filtrar por categoría" data-filters hidden>
         <button class="filters__btn" type="button" aria-pressed="true" data-cat="">Todos</button>
         ${cats.map((c) => `<button class="filters__btn" type="button" aria-pressed="false" data-cat="${c.id}">${esc(c.nombre)}</button>`)}
       </div>
-      <div class="shelf__controls">
-        <p class="shelf__pos" data-shelf-pos aria-live="polite"></p>
-        <button class="shelf__btn" type="button" data-shelf-prev aria-controls="shelf-proyectos" aria-label="Proyectos anteriores"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
-        <button class="shelf__btn" type="button" data-shelf-next aria-controls="shelf-proyectos" aria-label="Proyectos siguientes"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
-      </div>
     </div>
-    <ul class="shelf__track shelf__track--tiles" id="shelf-proyectos" aria-label="Proyectos" data-shelf-track>
+    <ul class="projects__grid" aria-label="Proyectos" data-filter-list>
       ${lista.map((p) => tile(ctx, p))}
     </ul>
+    <p class="projects__note">Los proyectos conceptuales y los espacios reservados se indican como tales.</p>
   </div>
 </section>`;
 };
@@ -268,8 +257,7 @@ export const contact = (ctx) => {
   return html`
 <section class="section contact" id="contacto" aria-labelledby="contacto-title">
   <div class="wrap">
-    ${sectionHead(idx('contacto'), 'Contacto', '', 'contacto-title')}
-    <p class="contact__title">${esc(c.invitacion.titulo)}</p>
+    <h2 class="contact__title" id="contacto-title">${esc(c.invitacion.titulo)}</h2>
     <p class="contact__text">${esc(c.invitacion.texto)}</p>
     ${mail}
     <ul class="contact__links">

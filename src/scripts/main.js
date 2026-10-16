@@ -195,6 +195,21 @@
     update();
   });
 
+  /* ---------- Filtros de la grilla de proyectos ---------- */
+  $$('[data-filter-list]').forEach((list) => {
+    const filters = list.parentElement.querySelector('[data-filters]');
+    if (!filters) return;
+    filters.hidden = false;
+    const btns = $$('[data-cat]', filters);
+    btns.forEach((btn) =>
+      btn.addEventListener('click', () => {
+        const cat = btn.dataset.cat;
+        btns.forEach((b) => b.setAttribute('aria-pressed', String(b === btn)));
+        [...list.children].forEach((li) => (li.hidden = Boolean(cat) && li.dataset.cat !== cat));
+      })
+    );
+  });
+
   /* ---------- Pestañas de habilidades ---------- */
   $$('[data-tabs]').forEach((list) => {
     const tabs = $$('[role="tab"]', list);
