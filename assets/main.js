@@ -59,7 +59,9 @@
 
   /* ---------- Sección actual en la navegación ---------- */
   const links = $$('[data-nav-link]');
-  const sections = links.length ? $$('main section[id]') : [];
+  // En páginas propias (Experiencia, Formación) la pestaña ya viene marcada: no se recalcula
+  const enPagina = document.querySelector('.nav__link[aria-current="page"]');
+  const sections = links.length && !enPagina ? $$('main section[id]') : [];
   if (sections.length) {
     const visible = new Map();
     const update = () => {
