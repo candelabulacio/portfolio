@@ -1,13 +1,19 @@
 import { esc, html } from '../lib/html.mjs';
 
-// Secciones del menú, en el mismo orden en que aparecen en la página.
-// Servicios, Sobre mí y Habilidades siguen en Inicio, pero no están en el menú.
+// Menú principal. "pagina: true" = página propia (/experiencia/); si no, es una sección de Inicio.
+// Servicios, Sobre mí y Habilidades están en Inicio, pero no en el menú.
 export const SECCIONES = [
   { id: 'proyectos', nombre: 'Proyectos' },
-  { id: 'experiencia', nombre: 'Experiencia' },
-  { id: 'formacion', nombre: 'Formación' },
+  { id: 'experiencia', nombre: 'Experiencia', pagina: true },
+  { id: 'formacion', nombre: 'Formación', pagina: true },
   { id: 'contacto', nombre: 'Contacto' },
 ];
+
+/** Enlace a una sección del menú desde cualquier página. */
+export const hrefSeccion = (ctx, id) => {
+  const s = SECCIONES.find((x) => x.id === id);
+  return s?.pagina ? `${ctx.root}${id}/` : `${ctx.root}#${id}`;
+};
 
 export const num = (i) => String(i + 1).padStart(2, '0');
 
@@ -29,7 +35,9 @@ const header = (ctx) => html`
         <ol class="nav__list">
           ${SECCIONES.map(
             (s, i) =>
-              `<li><a class="nav__link" href="${ctx.root}#${s.id}" data-nav-link="${s.id}">${s.nombre}</a></li>`
+              s.pagina
+                ? `<li><a class="nav__link" href="${hrefSeccion(ctx, s.id)}"${ctx.pagina === s.id ? ' aria-current="page"' : ''}>${s.nombre}</a></li>`
+                : `<li><a class="nav__link" href="${hrefSeccion(ctx, s.id)}" data-nav-link="${s.id}">${s.nombre}</a></li>`
           )}
         </ol>
         <div class="nav__cta">

@@ -65,11 +65,31 @@ const write = async (rel, content) => {
 };
 
 // Home
-const home = [S.hero, S.projects, S.services, S.about, S.experience, S.skills, S.education, S.contact].map((f) => f({ ...ctx, root: '' })).join('\n');
+const home = [S.hero, S.projects, S.services, S.about, S.skills, S.contact].map((f) => f({ ...ctx, root: '' })).join('\n');
 await write('index.html', layout({ ...ctx, root: '' }, { titulo: ctx.sitio.seo.titulo, descripcion: ctx.sitio.seo.descripcion, main: home }));
 
-// Casos de estudio
 const rutas = [''];
+
+// Páginas propias: Experiencia y Formación (con Contacto al final)
+for (const [id, seccion, titulo, descripcion] of [
+  ['experiencia', S.experience, 'Experiencia', 'Experiencia profesional de Candela Bulacio: puestos, responsabilidades y competencias.'],
+  ['formacion', S.education, 'Formación', 'Formación de Candela Bulacio: estudios, cursos, certificaciones e idiomas.'],
+]) {
+  const c = { ...ctx, root: '../', pagina: id };
+  const ruta = `${id}/`;
+  rutas.push(ruta);
+  await write(
+    `${ruta}index.html`,
+    layout(c, {
+      titulo: `${titulo} — ${ctx.sitio.nombre}`,
+      descripcion,
+      ruta,
+      main: `<div class="page">${seccion(c)}${S.contact(c)}</div>`,
+    })
+  );
+}
+
+// Casos de estudio
 for (const p of ctx.proyectos.filter((x) => x.estado !== 'reservado')) {
   const c = { ...ctx, root: '../../' };
   const ruta = `proyectos/${p.slug}/`;

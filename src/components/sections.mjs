@@ -1,5 +1,5 @@
 import { esc, t, has, html, items, extLink, isTodo } from '../lib/html.mjs';
-import { cvButton, sectionHead, SECCIONES, num } from './layout.mjs';
+import { cvButton, sectionHead, SECCIONES, num, hrefSeccion } from './layout.mjs';
 import { cover, estadoTag } from './project.mjs';
 
 const idx = (id) => SECCIONES.findIndex((s) => s.id === id);
@@ -29,7 +29,7 @@ export const hero = (ctx) => {
       <ul class="hero__actions" aria-label="Accesos rápidos">
         <li><a class="btn btn--solid btn--large" href="#contacto">Hablemos de tu proyecto</a></li>
         <li><a class="btn btn--large" href="#proyectos">Ver proyectos</a></li>
-        <li><a class="link" href="#experiencia">Experiencia y CV</a></li>
+        <li><a class="link" href="${hrefSeccion(ctx, 'experiencia')}">Experiencia y CV</a></li>
       </ul>
     </div>
     <figure class="hero__photo">

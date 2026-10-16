@@ -190,3 +190,6 @@ body.nav-open { overflow: hidden; }
   .section-head__title, .contact__title, .case__title { font-stretch: 100%; }
 }
 .section-head__title, .contact__title, .case__title { overflow-wrap: break-word; }
+
+/* Páginas propias: la primera sección arranca sin línea y más cerca del encabezado */
+.page > .section:first-child { border-top: 0; padding-top: clamp(2.5rem, 1.5rem + 4vw, 5rem); }
